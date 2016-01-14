@@ -1,0 +1,1 @@
+web: bin/hubot -a taringa --name dimekari --alias kari

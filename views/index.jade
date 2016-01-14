@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container
+    .navbar-spacer
+    nav.navbar
+      .container
+        ul.navbar-list
+          li.navbar-item
+            a.navbar-link(href='//kari.xyz/') Home
+          li.navbar-item
+            a.navbar-link(href='//kari.xyz/mensajes') Mensajes
+    .docs-section
+      h6.docs-header Página en construcción.
+      p
+        | Esta web sigue en construcción, pronto tendrá utilidades como "
+        strong Quien me tiene bloqueado?
+        | " y "
+        strong Seguidos baneados
+        | ". Mientras estan listas esas secciones, puedes perder el tiempo leyendo los mensajes privados de 
+        strong @DimeKari
+        |  en la sección de 
+        a(href='http://kari.xyz/mensajes') Mensajes
+      script(type='text/javascript').
+        (function(){var x=document.createElement('script'), s=document.getElementsByTagName('script')[0];x.async=true;x.src='http://widgets.itaringa.net/share.js';s.parentNode.insertBefore(x,s)})()
+      t:sharer(data-layout='medium_counter')

@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  a#k-unread-bubble(href='#')
+    | ▲ 
+    strong#k-unread-count 0
+    |  mensaje
+    span.k-s s
+    |  nuevo
+    span.k-s s
+  .container
+    .navbar-spacer
+    nav.navbar
+      .container
+        ul.navbar-list
+          li.navbar-item
+            a.navbar-link(href='//kari.xyz/') Home
+          li.navbar-item
+            a.navbar-link(href='//kari.xyz/mensajes') Mensajes
+    #k-message-view
+      p#k-message-loading Cargando…
+      h1.k-message-title
+        img#k-message-avatar.k-avatar.k-avatar-big(src='', alt='Avatar')
+        span#k-message-subject
+        a#k-message-close(title='Cerrar') ×
+        span#k-message-info
+          | Enviado por @
+          a(href='#', target='_blank')
+          | 
+          abbr
+      p#k-message-body
+    .row
+      .one-half-column
+        #k-header
+          h4 Mensajes privados
+          input#k-search-box(type='search', placeholder='Buscar…', maxlength='128')
+          #k-search-matches
+            a#k-search-dismiss(title='Ver todos los mensajes') ×
+            strong#k-search-count 4,395
+            |  resultado
+            span#k-search-count-s s
+        table.u-full-width
+          thead
+            tr
+              th Usuario
+              th Asunto
+              th Enviado
+          tbody#k-message-list
+            tr#k-empty-box
+        .k-center
+          a#k-load-more(href='#') Cargar más…
+  script(type='text/javascript', src='/js/jquery.js')
+  script(type='text/javascript', src='/js/app.js?v=2')

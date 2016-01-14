@@ -1,0 +1,74 @@
+# Description:
+#   Busca un video en youtube
+#
+# Commands:
+#   hubot [b]youtube|yt[/b] texto - Busca un video en youtube que concuerde con el texto ingresado
+
+S = require('string')
+noPorn = (text, cb) ->
+  txtLower = S(text.toLowerCase())
+  words = [
+    'suicide'
+    'porn'
+    'poring'
+    'sex'
+    'nipple'
+    'pezón'
+    'pezon'
+    'lawita'
+    'arwen'
+    'rosemo'
+    'coolicio'
+    'nadeshda'
+    'penis'
+    'pene'
+    'tattooed girl'
+    'tattoo girl'
+    'suicid'
+    'gore'
+    'gor3'
+    'g0r3'
+    'g0re'
+    'rule34'
+    'yiff'
+    'hentai'
+    'tetas'
+    'teta '
+    'nudist'
+    'nudism'
+    'autopsy'
+    'autopsia'
+    'bodypainting'
+  ]
+  valid = true
+  for word in words
+    if txtLower.contains(word)
+      valid = false
+      break
+  return cb valid
+
+module.exports = (robot) ->
+  robot.hear /(?:kari |\.)(?:youtube|yt) (.*)/i, (msg) ->
+    query = msg.match[1]
+    noPorn query,(valid) ->
+      if valid
+        robot.http("https://www.googleapis.com/youtube/v3/search")
+          .query({
+            order: 'relevance'
+            part: 'snippet'
+            type: 'video'
+            maxResults: 15
+            q: query
+            key: "AIzaSyAb780j48xmHsKxpJVCjjrXapcai3lBOKs"
+          })
+          .get() (err, res, body) ->
+            videos = JSON.parse(body)
+            videos = videos.items
+
+            unless videos? && videos.length > 0
+              return msg.send "No se encontraron videos para \"#{query}\""
+
+            video  = msg.random videos
+            msg.send "[video]https://www.youtube.com/watch?v=#{video.id.videoId}[/video]"
+      else
+        msg.send "Buen intento picarón ;)"
